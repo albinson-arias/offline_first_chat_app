@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:offline_first_chat_app/core/l10n/l10n.dart';
+import 'package:offline_first_chat_app/src/l10n/l10n.dart';
 import 'package:offline_first_chat_app/features/counter/counter.dart';
 
 class App extends StatelessWidget {
