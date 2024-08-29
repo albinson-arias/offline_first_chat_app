@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:offline_first_chat_app/src/l10n/l10n.dart';
 import 'package:offline_first_chat_app/features/counter/counter.dart';
+import 'package:offline_first_chat_app/src/l10n/l10n.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
