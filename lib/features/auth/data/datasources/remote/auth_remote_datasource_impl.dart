@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:offline_first_chat_app/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:offline_first_chat_app/features/auth/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/local_auth_state.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
 import 'package:offline_first_chat_app/src/core/errors/exceptions.dart';
-import 'package:offline_first_chat_app/src/supabase/database_constants.dart';
+import 'package:offline_first_chat_app/src/database/database_constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {

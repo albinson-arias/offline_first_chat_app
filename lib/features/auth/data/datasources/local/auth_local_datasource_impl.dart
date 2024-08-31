@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:offline_first_chat_app/features/auth/data/datasources/auth_local_datasource.dart';
+import 'package:offline_first_chat_app/features/auth/data/datasources/local/auth_local_datasource.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
 import 'package:offline_first_chat_app/src/core/errors/exceptions.dart';
 import 'package:powersync/powersync.dart';
