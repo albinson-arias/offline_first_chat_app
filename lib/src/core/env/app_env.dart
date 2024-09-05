@@ -1,7 +1,9 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class AppEnv {
-  static const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
-  static const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
-  static const powersyncInstanceUrl = String.fromEnvironment(
-    'POWERSYNC_INSTANCE_URL',
-  );
+  static final String environment = dotenv.env['ENVIRONMENT']!;
+  static final String supabaseUrl = dotenv.env['SUPABASE_URL']!;
+  static final String supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY']!;
+  static final String powersyncInstanceUrl =
+      dotenv.env['POWERSYNC_INSTANCE_URL']!;
 }

@@ -3,18 +3,22 @@ import 'package:offline_first_chat_app/features/auth/data/datasources/remote/aut
 import 'package:offline_first_chat_app/features/auth/domain/entities/local_auth_state.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
 import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
 import 'package:offline_first_chat_app/src/core/errors/exceptions.dart';
 import 'package:record_result/record_result.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl({
+  const AuthRepositoryImpl({
     required AuthLocalDatasource localDatasource,
     required AuthRemoteDatasource remoteDatasource,
+    required GlobalStore globalStore,
   })  : _localDatasource = localDatasource,
-        _remoteDatasource = remoteDatasource;
+        _remoteDatasource = remoteDatasource,
+        _globalStore = globalStore;
 
   final AuthLocalDatasource _localDatasource;
   final AuthRemoteDatasource _remoteDatasource;
+  final GlobalStore _globalStore;
 
   @override
   String? get accessToken => _remoteDatasource.accessToken;
@@ -35,6 +39,8 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         username: username,
       );
+
+      _globalStore.userId = result.id;
 
       return right(result);
     } on ServerException catch (e) {
@@ -67,6 +73,8 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
 
+      _globalStore.userId = result.id;
+
       return right(result);
     } on ServerException catch (e) {
       return left(e.toFailure());
@@ -77,6 +85,8 @@ class AuthRepositoryImpl implements AuthRepository {
   FutureResultVoid signOut() async {
     try {
       await _remoteDatasource.signOut();
+
+      _globalStore.userId = null;
 
       return voidSuccess;
     } on ServerException catch (e) {

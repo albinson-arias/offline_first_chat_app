@@ -13,25 +13,44 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_dotenv: ^5.1.0
   flutter_localizations:
     sdk: flutter
   get_it: ^7.7.0
+  go_router: ^14.2.7
+  hugeicons: ^0.0.7
   intl: ^0.19.0
   path: ^1.9.0
   path_provider: ^2.1.4
   powersync: ^1.7.0
   record_result: ^1.0.1+2
+  shared_preferences: ^2.3.2
   supabase_flutter: ^2.6.0
 
 dev_dependencies:
   bloc_test: ^9.1.7
   build_runner: ^2.4.12
   dart_mappable_builder: ^4.2.3
+  flutter_gen_runner: ^5.7.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
   very_good_analysis: ^6.0.0
 
+flutter_gen:
+  output: lib/src/gen/
+  line_length: 80 
+
+  integrations:
+    flutter_svg: true
+    flare_flutter: false
+    rive: false
+    lottie: false
+
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - env/
+    - assets/profile_pics/

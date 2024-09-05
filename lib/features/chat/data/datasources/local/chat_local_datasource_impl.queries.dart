@@ -47,7 +47,8 @@ UniqueParticipants AS (
         json_group_array(json_object(
             'id', p.id,
             'username', p.username,
-            'image_url', p.image_url
+            'image_url', p.image_url,
+            'created_at', p.created_at
         )) AS participants
     FROM
         room_participants rp
@@ -60,11 +61,11 @@ SELECT
 	  r.id,
     r.created_at,
     up.participants,
-    lm.lastMessage,
-    lm.lastMessageStatus,
-    lm.lastSenderId,
-    lm.lastMessageTimeSent,
-    COUNT(CASE WHEN m.status = 0 THEN 1 END) AS unReadMessages -- Assuming '0' represents unread
+    lm.lastMessage as last_message,
+    lm.lastMessageStatus as last_message_status,
+    lm.lastSenderId as last_sender_id,
+    lm.lastMessageTimeSent last_message_time_sent,
+    COUNT(CASE WHEN m.status = 0 THEN 1 END) AS unread_messages -- Assuming '0' represents unread
 FROM
     rooms r
 LEFT JOIN

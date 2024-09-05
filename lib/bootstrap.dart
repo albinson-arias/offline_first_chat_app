@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/powersync/powersync.dart';
 
@@ -22,7 +23,10 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  FutureOr<Widget> Function() builder,
+  String environment,
+) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -31,6 +35,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   // Add cross-flavor configuration here
 
+  await dotenv.load(fileName: environment);
   await openDatabase();
   await injectDependencies();
 
