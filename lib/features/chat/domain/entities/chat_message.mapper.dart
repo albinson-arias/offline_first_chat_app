@@ -29,7 +29,7 @@ class ChatMessageMapper extends ClassMapperBase<ChatMessage> {
       Field('createdAt', _$createdAt, key: 'created_at');
   static Profile _$profile(ChatMessage v) => v.profile;
   static const Field<ChatMessage, Profile> _f$profile =
-      Field('profile', _$profile);
+      Field('profile', _$profile, hook: ListProfileHook());
   static String _$content(ChatMessage v) => v.content;
   static const Field<ChatMessage, String> _f$content =
       Field('content', _$content);

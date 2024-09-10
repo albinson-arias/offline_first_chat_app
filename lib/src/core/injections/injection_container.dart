@@ -12,7 +12,8 @@ import 'package:offline_first_chat_app/features/chat/data/datasources/remote/cha
 import 'package:offline_first_chat_app/features/chat/data/datasources/remote/chat_remote_datasource_impl.dart';
 import 'package:offline_first_chat_app/features/chat/data/repositories/chat_repository_impl.dart';
 import 'package:offline_first_chat_app/features/chat/domain/repositories/chat_repository.dart';
-import 'package:offline_first_chat_app/features/chat/presentation/cubits/cubit/rooms_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_cubit/rooms_cubit.dart';
 import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_router.dart';
@@ -75,5 +76,8 @@ Future<void> initChat() async {
     )
     ..registerFactory<RoomsCubit>(
       () => RoomsCubit(chatRepository: sl()),
+    )
+    ..registerFactory<ChatCubit>(
+      () => ChatCubit(chatRepository: sl()),
     );
 }

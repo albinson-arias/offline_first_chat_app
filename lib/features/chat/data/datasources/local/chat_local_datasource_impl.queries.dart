@@ -5,11 +5,12 @@ const getContactsSQLQuery = 'SELECT * FROM profiles ORDER BY username ASC';
 const getMessagesFromRoomSQLQuery = '''
 SELECT
     m.id AS id,
-    m.created_at AS createdAt,
+    m.created_at AS created_at,
     json_object(
         'id', p.id,
         'username', p.username,
-        'image_url', p.image_url
+        'image_url', p.image_url,
+        'created_at', p.created_at
     ) AS profile,
     m.content AS content,
     m.status AS status
@@ -84,12 +85,12 @@ ORDER BY
 const sendMessageSQLQuery = '''
   INSERT INTO messages (id, created_at, room_id, profile_id, content, status)
   VALUES (
-      uuid(),               -- Replace with a unique ID for the message (UUID or other unique identifier)
-      datetime(),    -- Automatically sets the current timestamp
-      ?,          -- Replace with the actual room ID
-      ?,       -- Replace with the actual profile ID of the sender
-      ?',          -- Replace with the actual message content
-      0              -- Replace with the actual status (e.g., 0 for unread, 1 for read)
+      uuid(),               
+      datetime(),    
+      ?,          
+      ?,       
+      ?,        
+      0              
   );
 
 ''';

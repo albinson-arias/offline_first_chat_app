@@ -8,12 +8,15 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  chat_bubbles: ^1.6.0
+  cupertino_icons: ^1.0.8
   dart_mappable: ^4.2.2
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
   flutter_dotenv: ^5.1.0
+  flutter_list_view: ^1.1.28
   flutter_localizations:
     sdk: flutter
   get_it: ^7.7.0

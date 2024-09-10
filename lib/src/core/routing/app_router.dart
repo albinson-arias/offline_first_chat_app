@@ -5,7 +5,10 @@ import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_re
 import 'package:offline_first_chat_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:offline_first_chat_app/features/auth/presentation/views/login_screen.dart';
 import 'package:offline_first_chat_app/features/auth/presentation/views/register_screen.dart';
-import 'package:offline_first_chat_app/features/chat/presentation/cubits/cubit/rooms_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_cubit/rooms_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/views/chat_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/rooms_page.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
@@ -68,6 +71,19 @@ GoRouter getRouter(
           ],
           child: const RoomsPage(),
         ),
+        routes: [
+          GoRoute(
+            path: 'chat/:roomId',
+            name: AppRoutes.chat.name,
+            builder: (context, state) {
+              final room = state.extra! as Room;
+              return BlocProvider<ChatCubit>(
+                create: (context) => sl()..loadChat(room.id),
+                child: ChatPage(room: room),
+              );
+            },
+          ),
+        ],
       ),
     ],
   );

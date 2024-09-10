@@ -22,6 +22,8 @@ class RoomMapper extends ClassMapperBase<Room> {
   @override
   final String id = 'Room';
 
+  static String _$id(Room v) => v.id;
+  static const Field<Room, String> _f$id = Field('id', _$id);
   static DateTime _$createdAt(Room v) => v.createdAt;
   static const Field<Room, DateTime> _f$createdAt =
       Field('createdAt', _$createdAt, key: 'created_at');
@@ -48,6 +50,7 @@ class RoomMapper extends ClassMapperBase<Room> {
 
   @override
   final MappableFields<Room> fields = const {
+    #id: _f$id,
     #createdAt: _f$createdAt,
     #participants: _f$participants,
     #lastMessage: _f$lastMessage,
@@ -61,6 +64,7 @@ class RoomMapper extends ClassMapperBase<Room> {
   final MappingHook hook = const ListProfileHook();
   static Room _instantiate(DecodingData data) {
     return Room(
+        id: data.dec(_f$id),
         createdAt: data.dec(_f$createdAt),
         participants: data.dec(_f$participants),
         lastMessage: data.dec(_f$lastMessage),
@@ -119,7 +123,8 @@ abstract class RoomCopyWith<$R, $In extends Room, $Out>
   ListCopyWith<$R, Profile, ProfileCopyWith<$R, Profile, Profile>>
       get participants;
   $R call(
-      {DateTime? createdAt,
+      {String? id,
+      DateTime? createdAt,
       List<Profile>? participants,
       String? lastMessage,
       MessageStatus? lastMessageStatus,
@@ -141,7 +146,8 @@ class _RoomCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Room, $Out>
           (v, t) => v.copyWith.$chain(t), (v) => call(participants: v));
   @override
   $R call(
-          {DateTime? createdAt,
+          {String? id,
+          DateTime? createdAt,
           List<Profile>? participants,
           String? lastMessage,
           MessageStatus? lastMessageStatus,
@@ -149,6 +155,7 @@ class _RoomCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Room, $Out>
           DateTime? lastMessageTimeSent,
           int? unreadMessages}) =>
       $apply(FieldCopyWithData({
+        if (id != null) #id: id,
         if (createdAt != null) #createdAt: createdAt,
         if (participants != null) #participants: participants,
         if (lastMessage != null) #lastMessage: lastMessage,
@@ -160,6 +167,7 @@ class _RoomCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Room, $Out>
       }));
   @override
   Room $make(CopyWithData data) => Room(
+      id: data.get(#id, or: $value.id),
       createdAt: data.get(#createdAt, or: $value.createdAt),
       participants: data.get(#participants, or: $value.participants),
       lastMessage: data.get(#lastMessage, or: $value.lastMessage),

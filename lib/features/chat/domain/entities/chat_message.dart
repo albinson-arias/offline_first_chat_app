@@ -1,6 +1,9 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
+import 'package:offline_first_chat_app/features/chat/domain/entities/list_profile_hook.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/message_status.dart';
+import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
+import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 
 part 'chat_message.mapper.dart';
 
@@ -16,7 +19,13 @@ class ChatMessage with ChatMessageMappable {
 
   final String id;
   final DateTime createdAt;
+  @MappableField(hook: ListProfileHook())
   final Profile profile;
   final String content;
   final MessageStatus status;
+
+  bool get isMine {
+    final myUserId = sl<GlobalStore>().userId;
+    return profile.id == myUserId;
+  }
 }

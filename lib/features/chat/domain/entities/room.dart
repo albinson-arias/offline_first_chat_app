@@ -10,6 +10,7 @@ part 'room.mapper.dart';
 @MappableClass(caseStyle: CaseStyle.snakeCase, hook: ListProfileHook())
 class Room with RoomMappable {
   const Room({
+    required this.id,
     required this.createdAt,
     required this.participants,
     required this.lastMessage,
@@ -19,6 +20,7 @@ class Room with RoomMappable {
     required this.unreadMessages,
   });
 
+  final String id;
   final DateTime createdAt;
   @MappableField(hook: ListProfileHook())
   final List<Profile> participants;

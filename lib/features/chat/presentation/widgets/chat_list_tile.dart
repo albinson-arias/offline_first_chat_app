@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/message_status.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
+import 'package:offline_first_chat_app/src/core/extensions/string_ext.dart';
+import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 import 'package:offline_first_chat_app/src/gen/assets.gen.dart';
 
 class RoomListTile extends StatelessWidget {
@@ -13,19 +17,23 @@ class RoomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ).copyWith(
-        bottom: 20,
-      ),
-      child: InkWell(
-        // onTap: () => context.pushNamed(
-        //   ChatPage.routeName,
-        //   extra: chat,
-        // ),
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
+    return InkWell(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        context.pushNamed(
+          AppRoutes.chat.name,
+          pathParameters: {'roomId': room.id},
+          extra: room,
+        );
+      },
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ).copyWith(
+          bottom: 20,
+        ),
         child: Row(
           children: [
             ClipOval(
@@ -53,6 +61,7 @@ class RoomListTile extends StatelessWidget {
                       Text(
                         room.name,
                         style: context.textTheme.titleSmall,
+                        maxLines: 1,
                       ),
                       const Spacer(),
                       Text(
@@ -87,7 +96,7 @@ class RoomListTile extends StatelessWidget {
                         ),
                       Expanded(
                         child: Text(
-                          room.lastMessage,
+                          room.lastMessage.removeNewLines(),
                           overflow: TextOverflow.ellipsis,
                           style: context.textTheme.bodySmall?.copyWith(
                             fontWeight: room.unreadMessages > 0
