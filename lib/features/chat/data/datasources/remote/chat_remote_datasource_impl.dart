@@ -32,7 +32,9 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
       final result = await _database
           .from(DatabaseConstants.profilesTable)
           .select()
-          .textSearch('username', search);
+          .like('username', '%$search%')
+          .not('id', 'eq', userId)
+          .limit(10);
 
       return result.map(ProfileMapper.fromMap).toList();
     } on ServerException {
@@ -60,6 +62,35 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
       await _database
           .from(DatabaseConstants.messagesTable)
           .insert(updatedMessage);
+    } on ServerException {
+      rethrow;
+    } on PostgrestException catch (e) {
+      throw ServerException(
+        message: e.message,
+        statusCode: e.code ?? '505',
+      );
+    } catch (e, st) {
+      debugPrintStack(stackTrace: st);
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
+  }
+
+  @override
+  Future<void> createProfileInteractions(String otherUserId) async {
+    try {
+      final userId = _auth.currentUser?.id;
+
+      if (userId == null) {
+        throw const ServerException(
+          message: 'User is not logged in',
+          statusCode: '504',
+        );
+      }
+
+      await _database.rpc<void>(
+        'insert_profile_interactions',
+        params: {'user1': userId, 'user2': otherUserId},
+      );
     } on ServerException {
       rethrow;
     } on PostgrestException catch (e) {

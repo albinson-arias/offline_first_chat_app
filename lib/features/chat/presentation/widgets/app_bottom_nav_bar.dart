@@ -62,7 +62,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: InkWell(
-                        onTap: () => showNewChatDialog(context),
+                        onTap: () => context.pushNamed(AppRoutes.contacts.name),
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           height: double.maxFinite,

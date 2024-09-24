@@ -5,9 +5,13 @@ import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
 abstract interface class ChatLocalDatasource {
   Stream<List<Room>> getRooms();
 
+  Future<Room?> getRoomWithParticipant(String id);
+
   Stream<List<ChatMessage>> getMessagesForRoom(String id);
 
   Future<List<Profile>> getContacts();
 
   Future<void> sendMessage(String roomId, String content);
+
+  Future<Room> startConversation(Profile profile);
 }

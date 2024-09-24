@@ -5,6 +5,8 @@ import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
 abstract interface class ChatRepository {
   Stream<List<Room>> getRooms();
 
+  Future<Room?> getRoomWithParticipant(String id);
+
   Stream<List<ChatMessage>> getMessagesForRoom(String id);
 
   Future<List<Profile>> getContacts();
@@ -12,4 +14,6 @@ abstract interface class ChatRepository {
   Future<List<Profile>> searchProfiles(String search);
 
   Future<void> sendMessage(String roomId, String content);
+
+  Future<Room> startConversation(Profile profile);
 }

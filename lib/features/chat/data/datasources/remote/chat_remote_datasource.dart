@@ -5,4 +5,6 @@ abstract interface class ChatRemoteDatasource {
   Future<List<Profile>> searchProfiles(String search);
 
   Future<void> sendMessage(ChatMessage message);
+
+  Future<void> createProfileInteractions(String otherUserId);
 }

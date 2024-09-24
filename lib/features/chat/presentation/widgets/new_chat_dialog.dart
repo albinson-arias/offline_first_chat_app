@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
+import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 
 class NewChatDialog extends StatelessWidget {
   const NewChatDialog({
@@ -30,7 +32,11 @@ class NewChatDialog extends StatelessWidget {
               child: Column(
                 children: [
                   NewChatDialogOption(
-                    onTap: () {},
+                    onTap: () {
+                      context
+                        ..pop()
+                        ..pushNamed(AppRoutes.contacts.name);
+                    },
                     icon: HugeIcons.strokeRoundedBubbleChatAdd,
                     title: 'New Chat',
                     subtitle: 'Send a message to your contacts',

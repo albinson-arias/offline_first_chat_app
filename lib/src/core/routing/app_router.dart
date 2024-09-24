@@ -7,8 +7,10 @@ import 'package:offline_first_chat_app/features/auth/presentation/views/login_sc
 import 'package:offline_first_chat_app/features/auth/presentation/views/register_screen.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/cubits/chat_cubit/chat_cubit.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/cubits/contacts_cubit/contacts_cubit.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_cubit/rooms_cubit.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/chat_page.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/views/contacts_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/rooms_page.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
@@ -80,6 +82,16 @@ GoRouter getRouter(
               return BlocProvider<ChatCubit>(
                 create: (context) => sl()..loadChat(room.id),
                 child: ChatPage(room: room),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'contacts',
+            name: AppRoutes.contacts.name,
+            builder: (context, state) {
+              return BlocProvider<ContactsCubit>(
+                create: (context) => sl()..loadContacts(),
+                child: const ContactsPage(),
               );
             },
           ),

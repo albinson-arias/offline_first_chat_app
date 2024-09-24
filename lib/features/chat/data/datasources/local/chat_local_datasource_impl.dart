@@ -31,7 +31,7 @@ class ChatLocalDatasourceImpl implements ChatLocalDatasource {
         );
       }
 
-      final result = await _db.getAll(getContactsSQLQuery);
+      final result = await _db.getAll(getContactsSQLQuery, [userId]);
 
       final profiles =
           result.map(ProfileMapper.fromMap).toList(growable: false);
@@ -96,6 +96,33 @@ class ChatLocalDatasourceImpl implements ChatLocalDatasource {
   }
 
   @override
+  Future<Room?> getRoomWithParticipant(String id) async {
+    try {
+      final userId = _auth.currentUser?.id;
+
+      if (userId == null) {
+        throw const ServerException(
+          message: 'User is not logged in',
+          statusCode: '504',
+        );
+      }
+
+      final result = await _db.getAll(getRoomWithParticipantSQLQuery, [id]);
+
+      final rooms = result.map(RoomMapper.fromMap).toList(growable: false);
+
+      if (rooms.isEmpty) return null;
+
+      return rooms.first;
+    } on ServerException {
+      rethrow;
+    } catch (e, st) {
+      debugPrintStack(stackTrace: st);
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
+  }
+
+  @override
   Future<void> sendMessage(String roomId, String content) async {
     try {
       final userId = _auth.currentUser?.id;
@@ -108,6 +135,54 @@ class ChatLocalDatasourceImpl implements ChatLocalDatasource {
       }
 
       await _db.execute(sendMessageSQLQuery, [roomId, userId, content]);
+    } on ServerException {
+      rethrow;
+    } catch (e, st) {
+      debugPrintStack(stackTrace: st);
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
+  }
+
+  @override
+  Future<Room> startConversation(Profile profile) async {
+    try {
+      final userId = _auth.currentUser?.id;
+
+      if (userId == null) {
+        throw const ServerException(
+          message: 'User is not logged in',
+          statusCode: '504',
+        );
+      }
+
+      await _db.writeTransaction<void>(
+        (tx) async {
+          // Create new room
+          final newRoomId = uuid.v1();
+          await tx.execute(createRoomSQLQuery, [newRoomId]);
+
+          // Add participants to room
+          await tx.executeBatch(addRoomParticipantsSQLQuery, [
+            [userId, newRoomId],
+            [profile.id, newRoomId],
+          ]);
+        },
+      );
+
+      var room = (await getRoomWithParticipant(profile.id))!;
+
+      if (room.participants.length > 1) return room;
+
+      // If room only has 1 participants means it hasnt synced correctly
+      // so keep trying until it has
+
+      while (room.participants.length < 2) {
+        final currentRoom = await getRoomWithParticipant(profile.id);
+        if (currentRoom != null) {
+          room = currentRoom;
+        }
+      }
+      return room;
     } on ServerException {
       rethrow;
     } catch (e, st) {

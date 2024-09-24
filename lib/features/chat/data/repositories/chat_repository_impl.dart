@@ -32,4 +32,14 @@ class ChatRepositoryImpl implements ChatRepository {
   @override
   Future<void> sendMessage(String roomId, String content) =>
       _localDatasource.sendMessage(roomId, content);
+
+  @override
+  Future<Room?> getRoomWithParticipant(String id) =>
+      _localDatasource.getRoomWithParticipant(id);
+
+  @override
+  Future<Room> startConversation(Profile profile) async {
+    await _remoteDatasource.createProfileInteractions(profile.id);
+    return _localDatasource.startConversation(profile);
+  }
 }

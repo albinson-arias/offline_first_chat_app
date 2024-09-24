@@ -76,11 +76,11 @@ class RoomListTile extends StatelessWidget {
                   SizedBox(height: room.unreadMessages > 0 ? 2 : 6),
                   Row(
                     children: [
-                      if (room.lastSenderIsMe)
+                      if (room.lastSenderIsMe && room.lastMessageStatus != null)
                         Padding(
                           padding: const EdgeInsets.only(right: 4),
                           child: Icon(
-                            switch (room.lastMessageStatus) {
+                            switch (room.lastMessageStatus!) {
                               MessageStatus.delivered => Icons.done_all_rounded,
                               MessageStatus.read => Icons.done_all_rounded,
                               MessageStatus.sending =>
@@ -94,17 +94,18 @@ class RoomListTile extends StatelessWidget {
                             },
                           ),
                         ),
-                      Expanded(
-                        child: Text(
-                          room.lastMessage.removeNewLines(),
-                          overflow: TextOverflow.ellipsis,
-                          style: context.textTheme.bodySmall?.copyWith(
-                            fontWeight: room.unreadMessages > 0
-                                ? FontWeight.bold
-                                : FontWeight.w300,
+                      if (room.lastMessage != null)
+                        Expanded(
+                          child: Text(
+                            room.lastMessage!.removeNewLines(),
+                            overflow: TextOverflow.ellipsis,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              fontWeight: room.unreadMessages > 0
+                                  ? FontWeight.bold
+                                  : FontWeight.w300,
+                            ),
                           ),
                         ),
-                      ),
                       if (room.unreadMessages > 0) ...[
                         const SizedBox(width: 2),
                         Container(

@@ -30,34 +30,34 @@ class RoomMapper extends ClassMapperBase<Room> {
   static List<Profile> _$participants(Room v) => v.participants;
   static const Field<Room, List<Profile>> _f$participants =
       Field('participants', _$participants, hook: ListProfileHook());
-  static String _$lastMessage(Room v) => v.lastMessage;
-  static const Field<Room, String> _f$lastMessage =
-      Field('lastMessage', _$lastMessage, key: 'last_message');
-  static MessageStatus _$lastMessageStatus(Room v) => v.lastMessageStatus;
-  static const Field<Room, MessageStatus> _f$lastMessageStatus = Field(
-      'lastMessageStatus', _$lastMessageStatus,
-      key: 'last_message_status');
-  static String _$lastSenderId(Room v) => v.lastSenderId;
-  static const Field<Room, String> _f$lastSenderId =
-      Field('lastSenderId', _$lastSenderId, key: 'last_sender_id');
-  static DateTime _$lastMessageTimeSent(Room v) => v.lastMessageTimeSent;
-  static const Field<Room, DateTime> _f$lastMessageTimeSent = Field(
-      'lastMessageTimeSent', _$lastMessageTimeSent,
-      key: 'last_message_time_sent');
   static int _$unreadMessages(Room v) => v.unreadMessages;
   static const Field<Room, int> _f$unreadMessages =
       Field('unreadMessages', _$unreadMessages, key: 'unread_messages');
+  static String? _$lastMessage(Room v) => v.lastMessage;
+  static const Field<Room, String> _f$lastMessage =
+      Field('lastMessage', _$lastMessage, key: 'last_message', opt: true);
+  static MessageStatus? _$lastMessageStatus(Room v) => v.lastMessageStatus;
+  static const Field<Room, MessageStatus> _f$lastMessageStatus = Field(
+      'lastMessageStatus', _$lastMessageStatus,
+      key: 'last_message_status', opt: true);
+  static String? _$lastSenderId(Room v) => v.lastSenderId;
+  static const Field<Room, String> _f$lastSenderId =
+      Field('lastSenderId', _$lastSenderId, key: 'last_sender_id', opt: true);
+  static DateTime? _$lastMessageTimeSent(Room v) => v.lastMessageTimeSent;
+  static const Field<Room, DateTime> _f$lastMessageTimeSent = Field(
+      'lastMessageTimeSent', _$lastMessageTimeSent,
+      key: 'last_message_time_sent', opt: true);
 
   @override
   final MappableFields<Room> fields = const {
     #id: _f$id,
     #createdAt: _f$createdAt,
     #participants: _f$participants,
+    #unreadMessages: _f$unreadMessages,
     #lastMessage: _f$lastMessage,
     #lastMessageStatus: _f$lastMessageStatus,
     #lastSenderId: _f$lastSenderId,
     #lastMessageTimeSent: _f$lastMessageTimeSent,
-    #unreadMessages: _f$unreadMessages,
   };
 
   @override
@@ -67,11 +67,11 @@ class RoomMapper extends ClassMapperBase<Room> {
         id: data.dec(_f$id),
         createdAt: data.dec(_f$createdAt),
         participants: data.dec(_f$participants),
+        unreadMessages: data.dec(_f$unreadMessages),
         lastMessage: data.dec(_f$lastMessage),
         lastMessageStatus: data.dec(_f$lastMessageStatus),
         lastSenderId: data.dec(_f$lastSenderId),
-        lastMessageTimeSent: data.dec(_f$lastMessageTimeSent),
-        unreadMessages: data.dec(_f$unreadMessages));
+        lastMessageTimeSent: data.dec(_f$lastMessageTimeSent));
   }
 
   @override
@@ -126,11 +126,11 @@ abstract class RoomCopyWith<$R, $In extends Room, $Out>
       {String? id,
       DateTime? createdAt,
       List<Profile>? participants,
+      int? unreadMessages,
       String? lastMessage,
       MessageStatus? lastMessageStatus,
       String? lastSenderId,
-      DateTime? lastMessageTimeSent,
-      int? unreadMessages});
+      DateTime? lastMessageTimeSent});
   RoomCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -149,34 +149,34 @@ class _RoomCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Room, $Out>
           {String? id,
           DateTime? createdAt,
           List<Profile>? participants,
-          String? lastMessage,
-          MessageStatus? lastMessageStatus,
-          String? lastSenderId,
-          DateTime? lastMessageTimeSent,
-          int? unreadMessages}) =>
+          int? unreadMessages,
+          Object? lastMessage = $none,
+          Object? lastMessageStatus = $none,
+          Object? lastSenderId = $none,
+          Object? lastMessageTimeSent = $none}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (createdAt != null) #createdAt: createdAt,
         if (participants != null) #participants: participants,
-        if (lastMessage != null) #lastMessage: lastMessage,
-        if (lastMessageStatus != null) #lastMessageStatus: lastMessageStatus,
-        if (lastSenderId != null) #lastSenderId: lastSenderId,
-        if (lastMessageTimeSent != null)
-          #lastMessageTimeSent: lastMessageTimeSent,
-        if (unreadMessages != null) #unreadMessages: unreadMessages
+        if (unreadMessages != null) #unreadMessages: unreadMessages,
+        if (lastMessage != $none) #lastMessage: lastMessage,
+        if (lastMessageStatus != $none) #lastMessageStatus: lastMessageStatus,
+        if (lastSenderId != $none) #lastSenderId: lastSenderId,
+        if (lastMessageTimeSent != $none)
+          #lastMessageTimeSent: lastMessageTimeSent
       }));
   @override
   Room $make(CopyWithData data) => Room(
       id: data.get(#id, or: $value.id),
       createdAt: data.get(#createdAt, or: $value.createdAt),
       participants: data.get(#participants, or: $value.participants),
+      unreadMessages: data.get(#unreadMessages, or: $value.unreadMessages),
       lastMessage: data.get(#lastMessage, or: $value.lastMessage),
       lastMessageStatus:
           data.get(#lastMessageStatus, or: $value.lastMessageStatus),
       lastSenderId: data.get(#lastSenderId, or: $value.lastSenderId),
       lastMessageTimeSent:
-          data.get(#lastMessageTimeSent, or: $value.lastMessageTimeSent),
-      unreadMessages: data.get(#unreadMessages, or: $value.unreadMessages));
+          data.get(#lastMessageTimeSent, or: $value.lastMessageTimeSent));
 
   @override
   RoomCopyWith<$R2, Room, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

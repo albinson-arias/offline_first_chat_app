@@ -13,21 +13,21 @@ class Room with RoomMappable {
     required this.id,
     required this.createdAt,
     required this.participants,
-    required this.lastMessage,
-    required this.lastMessageStatus,
-    required this.lastSenderId,
-    required this.lastMessageTimeSent,
     required this.unreadMessages,
+    this.lastMessage,
+    this.lastMessageStatus,
+    this.lastSenderId,
+    this.lastMessageTimeSent,
   });
 
   final String id;
   final DateTime createdAt;
   @MappableField(hook: ListProfileHook())
   final List<Profile> participants;
-  final String lastMessage;
-  final MessageStatus lastMessageStatus;
-  final String lastSenderId;
-  final DateTime lastMessageTimeSent;
+  final String? lastMessage;
+  final MessageStatus? lastMessageStatus;
+  final String? lastSenderId;
+  final DateTime? lastMessageTimeSent;
   final int unreadMessages;
 
   List<Profile> get otherParticipants {
@@ -45,10 +45,12 @@ class Room with RoomMappable {
   }
 
   String get name {
+    if (otherParticipants.isEmpty) return '';
     return otherParticipants.first.username;
   }
 
   String? get imageUrl {
+    if (otherParticipants.isEmpty) return null;
     return otherParticipants.first.imageUrl;
   }
 }
