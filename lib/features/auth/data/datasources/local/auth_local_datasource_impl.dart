@@ -41,4 +41,33 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
       throw ServerException(message: e.toString(), statusCode: '505');
     }
   }
+
+  @override
+  Stream<Profile> getCurrentUserStream() {
+    try {
+      final userId = _auth.currentUser?.id;
+
+      if (userId == null) {
+        throw const ServerException(
+          message: 'User is not logged in',
+          statusCode: '504',
+        );
+      }
+
+      const sqlQuery = 'SELECT * FROM profiles WHERE id = ? LIMIT 1';
+
+      final result = _db.watch(sqlQuery, parameters: [userId]);
+
+      return result.map(
+        (event) {
+          return event.map(ProfileMapper.fromMap).toList(growable: false).first;
+        },
+      );
+    } on ServerException {
+      rethrow;
+    } catch (e, st) {
+      debugPrintStack(stackTrace: st);
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/story.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_cubit/rooms_cubit.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
+import 'package:offline_first_chat_app/src/common/presentation/widgets/app_bottom_nav_bar.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
 
 class RoomsPage extends StatelessWidget {

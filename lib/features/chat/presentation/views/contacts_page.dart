@@ -5,7 +5,9 @@ import 'package:offline_first_chat_app/features/chat/presentation/cubits/contact
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/add_contact_search_delegate.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/contacts_list.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/contacts_search_delegate.dart';
+import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
+import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -16,13 +18,12 @@ class ContactsPage extends StatelessWidget {
     return BlocConsumer<ContactsCubit, ContactsState>(
       listener: (context, state) {
         if (state is ContactsNavigateToRoom) {
-          context
-            ..pop()
-            ..pushReplacementNamed(
-              AppRoutes.chat.name,
-              pathParameters: {'roomId': state.room.id},
-              extra: state.room,
-            );
+          sl<BottomNavBarCubit>().navigateToHome();
+          context.goNamed(
+            AppRoutes.chat.name,
+            pathParameters: {'roomId': state.room.id},
+            extra: state.room,
+          );
         }
       },
       listenWhen: (previous, current) => current is ContactsNavigateToRoom,

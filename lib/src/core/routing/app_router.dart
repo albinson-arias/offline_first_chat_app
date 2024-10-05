@@ -12,7 +12,9 @@ import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_c
 import 'package:offline_first_chat_app/features/chat/presentation/views/chat_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/contacts_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/rooms_page.dart';
-import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
+import 'package:offline_first_chat_app/features/profile/presentation/cubit/pick_profile_pic_cubit/pick_profile_pic_cubit.dart';
+import 'package:offline_first_chat_app/features/profile/presentation/cubit/profile_cubit/profile_cubit.dart';
+import 'package:offline_first_chat_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 import 'package:offline_first_chat_app/src/core/routing/go_router_refresh_stream.dart';
@@ -62,16 +64,15 @@ GoRouter getRouter(
       GoRoute(
         path: '/',
         name: AppRoutes.rooms.name,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider<BottomNavBarCubit>(
-              create: (context) => sl(),
-            ),
-            BlocProvider<RoomsCubit>(
-              create: (context) => sl(),
-            ),
-          ],
-          child: const RoomsPage(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<RoomsCubit>(
+                create: (context) => sl(),
+              ),
+            ],
+            child: const RoomsPage(),
+          ),
         ),
         routes: [
           GoRoute(
@@ -96,6 +97,23 @@ GoRouter getRouter(
             },
           ),
         ],
+      ),
+      GoRoute(
+        path: '/profile',
+        name: AppRoutes.profile.name,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<ProfileCubit>(
+                create: (context) => sl(),
+              ),
+              BlocProvider<PickProfilePicCubit>(
+                create: (context) => sl(),
+              ),
+            ],
+            child: const ProfileScreen(),
+          ),
+        ),
       ),
     ],
   );

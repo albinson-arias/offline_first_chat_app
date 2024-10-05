@@ -4,4 +4,5 @@ import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dar
 
 abstract interface class AuthLocalDatasource {
   Future<Profile> getCurrentUser();
+  Stream<Profile> getCurrentUserStream();
 }

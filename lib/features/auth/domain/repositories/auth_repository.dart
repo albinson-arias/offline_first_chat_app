@@ -35,6 +35,9 @@ abstract interface class AuthRepository {
   /// Retrieves the user currently logged in.
   FutureResult<Profile> getCurrentUser();
 
+  /// Retrieves the user currently logged in.
+  Stream<Profile> getCurrentUserStream();
+
   /// Returns whether the user is logged in.
   bool get isLoggedIn;
 

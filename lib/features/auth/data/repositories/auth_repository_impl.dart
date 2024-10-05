@@ -93,4 +93,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(e.toFailure());
     }
   }
+
+  @override
+  Stream<Profile> getCurrentUserStream() =>
+      _localDatasource.getCurrentUserStream();
 }

@@ -14,6 +14,12 @@ class App extends StatelessWidget {
       routerDelegate: sl<GoRouter>().routerDelegate,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+        ),
+      ),
     );
   }
 }

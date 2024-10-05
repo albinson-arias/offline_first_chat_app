@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -18,19 +15,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w900,
         ),
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: GestureDetector(
-            onTap: () {
-              sl<AuthRepository>().signOut();
-            },
-            child: const Icon(
-              CupertinoIcons.search,
-            ),
-          ),
-        ),
-      ],
     );
   }
 

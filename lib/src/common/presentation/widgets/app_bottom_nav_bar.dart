@@ -5,6 +5,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
+import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -25,6 +26,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavBarCubit, int>(
+      bloc: sl(),
       builder: (context, state) {
         return SafeArea(
           child: DecoratedBox(
@@ -46,8 +48,8 @@ class AppBottomNavigationBar extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           if (state == 0) return;
-                          context.pushReplacementNamed(AppRoutes.rooms.name);
-                          context.read<BottomNavBarCubit>().navigateToHome();
+                          context.goNamed(AppRoutes.rooms.name);
+                          sl<BottomNavBarCubit>().navigateToHome();
                         },
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
@@ -92,8 +94,8 @@ class AppBottomNavigationBar extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           if (state == 1) return;
-                          // context.pushReplacementNamed(ProfilePage.routeName)
-                          // context.read<BottomNavBarCubit>().navigateToProfile
+                          context.goNamed(AppRoutes.profile.name);
+                          sl<BottomNavBarCubit>().navigateToProfile();
                         },
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,

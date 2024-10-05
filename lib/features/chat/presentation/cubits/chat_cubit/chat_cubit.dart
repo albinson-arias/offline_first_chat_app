@@ -20,7 +20,7 @@ class ChatCubit extends Cubit<ChatState> {
     return super.close();
   }
 
-  Future<void> loadChat(String roomId) async {
+  void loadChat(String roomId) {
     emit(const ChatLoading());
 
     subscription = _chatRepository.getMessagesForRoom(roomId).listen(

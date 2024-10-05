@@ -19,6 +19,10 @@
 		<string>en</string>
 		<string>es</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to take profile picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used to pick profile picture</string>
 	<key>CFBundleName</key>
 	<string>$(FLAVOR_APP_NAME)</string>
 	<key>CFBundlePackageType</key>
