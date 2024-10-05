@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -53,11 +54,17 @@ class ProfileScreenLoaded extends StatelessWidget {
                             height: 80,
                             fit: BoxFit.cover,
                           )
-                        : Image.network(
-                            profile.imageUrl!,
+                        : CachedNetworkImage(
+                            imageUrl: profile.imageUrl!,
                             width: 80,
                             height: 80,
                             fit: BoxFit.cover,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              color: Colors.blue,
+                            ),
                           ),
                   ),
                   Positioned(

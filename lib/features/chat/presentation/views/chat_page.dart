@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/room.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
@@ -24,11 +25,17 @@ class ChatPage extends StatelessWidget {
                       height: 36,
                       fit: BoxFit.cover,
                     )
-                  : Image.network(
-                      room.imageUrl!,
+                  : CachedNetworkImage(
+                      imageUrl: room.imageUrl!,
                       width: 36,
                       height: 36,
                       fit: BoxFit.cover,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                        color: Colors.blue,
+                      ),
                     ),
             ),
             const SizedBox(width: 12),

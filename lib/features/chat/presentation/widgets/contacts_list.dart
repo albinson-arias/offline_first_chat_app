@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
@@ -53,11 +54,17 @@ class ContactsList extends StatelessWidget {
                           height: 44,
                           fit: BoxFit.cover,
                         )
-                      : Image.network(
-                          contact.imageUrl!,
+                      : CachedNetworkImage(
+                          imageUrl: contact.imageUrl!,
                           width: 44,
                           height: 44,
                           fit: BoxFit.cover,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                            color: Colors.blue,
+                          ),
                         ),
                 ),
                 title: Text(

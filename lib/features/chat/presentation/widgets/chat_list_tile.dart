@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -44,11 +45,17 @@ class RoomListTile extends StatelessWidget {
                       height: 50,
                       fit: BoxFit.cover,
                     )
-                  : Image.network(
-                      room.imageUrl!,
+                  : CachedNetworkImage(
+                      imageUrl: room.imageUrl!,
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                        color: Colors.blue,
+                      ),
                     ),
             ),
             const SizedBox(width: 8),
