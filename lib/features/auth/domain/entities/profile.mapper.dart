@@ -28,6 +28,8 @@ class ProfileMapper extends ClassMapperBase<Profile> {
   static String _$username(Profile v) => v.username;
   static const Field<Profile, String> _f$username =
       Field('username', _$username);
+  static String _$bio(Profile v) => v.bio;
+  static const Field<Profile, String> _f$bio = Field('bio', _$bio);
   static String? _$imageUrl(Profile v) => v.imageUrl;
   static const Field<Profile, String> _f$imageUrl =
       Field('imageUrl', _$imageUrl, key: 'image_url', opt: true);
@@ -37,6 +39,7 @@ class ProfileMapper extends ClassMapperBase<Profile> {
     #id: _f$id,
     #createdAt: _f$createdAt,
     #username: _f$username,
+    #bio: _f$bio,
     #imageUrl: _f$imageUrl,
   };
 
@@ -45,6 +48,7 @@ class ProfileMapper extends ClassMapperBase<Profile> {
         id: data.dec(_f$id),
         createdAt: data.dec(_f$createdAt),
         username: data.dec(_f$username),
+        bio: data.dec(_f$bio),
         imageUrl: data.dec(_f$imageUrl));
   }
 
@@ -98,7 +102,11 @@ extension ProfileValueCopy<$R, $Out> on ObjectCopyWith<$R, Profile, $Out> {
 abstract class ProfileCopyWith<$R, $In extends Profile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call(
-      {String? id, DateTime? createdAt, String? username, String? imageUrl});
+      {String? id,
+      DateTime? createdAt,
+      String? username,
+      String? bio,
+      String? imageUrl});
   ProfileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -115,11 +123,13 @@ class _ProfileCopyWithImpl<$R, $Out>
           {String? id,
           DateTime? createdAt,
           String? username,
+          String? bio,
           Object? imageUrl = $none}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (createdAt != null) #createdAt: createdAt,
         if (username != null) #username: username,
+        if (bio != null) #bio: bio,
         if (imageUrl != $none) #imageUrl: imageUrl
       }));
   @override
@@ -127,6 +137,7 @@ class _ProfileCopyWithImpl<$R, $Out>
       id: data.get(#id, or: $value.id),
       createdAt: data.get(#createdAt, or: $value.createdAt),
       username: data.get(#username, or: $value.username),
+      bio: data.get(#bio, or: $value.bio),
       imageUrl: data.get(#imageUrl, or: $value.imageUrl));
 
   @override

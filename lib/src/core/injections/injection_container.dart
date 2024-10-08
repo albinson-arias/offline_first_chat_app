@@ -114,7 +114,7 @@ Future<void> initProfile() async {
       () => ProfileRepositoryImpl(localDatasource: sl(), imageUploader: sl()),
     )
     ..registerFactory<ProfileCubit>(
-      () => ProfileCubit(repository: sl()),
+      () => ProfileCubit(repository: sl(), profileRepository: sl()),
     )
     ..registerFactory<PickProfilePicCubit>(
       () => PickProfilePicCubit(repository: sl()),

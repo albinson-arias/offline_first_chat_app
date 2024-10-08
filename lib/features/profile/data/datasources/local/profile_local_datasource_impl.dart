@@ -36,4 +36,25 @@ class ProfileLocalDatasourceImpl implements ProfileLocalDatasource {
       throw ServerException(message: e.toString(), statusCode: '505');
     }
   }
+
+  @override
+  Future<void> updateBio(String bio) async {
+    try {
+      final userId = _auth.currentUser?.id;
+
+      if (userId == null) {
+        throw const ServerException(
+          message: 'User is not logged in',
+          statusCode: '504',
+        );
+      }
+
+      await _db.execute(updateBioSQLQuery, [bio, userId]);
+    } on ServerException {
+      rethrow;
+    } catch (e, st) {
+      debugPrintStack(stackTrace: st);
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
+  }
 }

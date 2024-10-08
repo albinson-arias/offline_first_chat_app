@@ -8,6 +8,7 @@ class Profile with ProfileMappable {
     required this.id,
     required this.createdAt,
     required this.username,
+    required this.bio,
     this.imageUrl,
   });
 
@@ -22,4 +23,8 @@ class Profile with ProfileMappable {
 
   /// The optional URL of the user's avatar image.
   final String? imageUrl;
+
+  /// A short description of this user.
+  /// Maximum length is 100.
+  final String bio;
 }

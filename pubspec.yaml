@@ -21,6 +21,7 @@ dependencies:
   flutter_list_view: ^1.1.28
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.0.10+1
   get_it: ^7.7.0
   go_router: ^14.2.7
   hugeicons: ^0.0.7
@@ -60,3 +61,4 @@ flutter:
   assets:
     - env/
     - assets/profile_pics/
+    - assets/icons/

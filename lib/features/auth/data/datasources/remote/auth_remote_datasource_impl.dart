@@ -68,6 +68,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
               id: id,
               createdAt: DateTime.now(),
               username: username,
+              bio: 'Available',
             ).toMap(),
           )
           .select()

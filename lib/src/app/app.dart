@@ -18,6 +18,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
         ),
       ),
     );

@@ -11,7 +11,8 @@ SELECT
         'id', p.id,
         'username', p.username,
         'image_url', p.image_url,
-        'created_at', p.created_at
+        'created_at', p.created_at,
+        'bio', p.bio
     ) AS profile,
     m.content AS content,
     m.status AS status
@@ -50,7 +51,8 @@ UniqueParticipants AS (
             'id', p.id,
             'username', p.username,
             'image_url', p.image_url,
-            'created_at', p.created_at
+            'created_at', p.created_at,
+            'bio', p.bio
         )) AS participants
     FROM
         room_participants rp
@@ -108,7 +110,8 @@ UniqueParticipants AS (
             'id', p.id,
             'username', p.username,
             'image_url', p.image_url,
-            'created_at', p.created_at
+            'created_at', p.created_at,
+            'bio', p.bio
         )) AS participants
     FROM
         room_participants rp

@@ -5,3 +5,9 @@ UPDATE profiles
 SET image_url = ?
 WHERE id = ? ;
 ''';
+
+const updateBioSQLQuery = '''
+UPDATE profiles
+SET bio = ?
+WHERE id = ? ;
+''';

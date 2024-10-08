@@ -9,6 +9,7 @@ import 'package:offline_first_chat_app/features/profile/presentation/widgets/pic
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
+import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 import 'package:offline_first_chat_app/src/core/utils/core_utils.dart';
 import 'package:offline_first_chat_app/src/gen/assets.gen.dart';
 
@@ -48,8 +49,7 @@ class ProfileScreenLoaded extends StatelessWidget {
                 children: [
                   ClipOval(
                     child: profile.imageUrl == null
-                        ? Image.asset(
-                            Assets.profilePics.a1.path,
+                        ? Assets.icons.profile.svg(
                             width: 80,
                             height: 80,
                             fit: BoxFit.cover,
@@ -90,9 +90,11 @@ class ProfileScreenLoaded extends StatelessWidget {
                           color: Colors.blue,
                           shape: BoxShape.circle,
                         ),
+                        padding: const EdgeInsets.all(4),
                         child: const Icon(
-                          Icons.add,
+                          Icons.edit,
                           color: Colors.white,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -106,6 +108,50 @@ class ProfileScreenLoaded extends StatelessWidget {
                 profile.username,
                 style: context.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: Text(
+                'Bio',
+                style: context.textTheme.labelMedium?.copyWith(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            InkWell(
+              onTap: () => context.pushNamed(AppRoutes.bio.name),
+              borderRadius: BorderRadius.circular(18),
+              child: Ink(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF1F1F1),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: Colors.grey.shade400,
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          profile.bio,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right_rounded),
+                    ],
+                  ),
                 ),
               ),
             ),

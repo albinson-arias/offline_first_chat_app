@@ -39,8 +39,7 @@ class RoomListTile extends StatelessWidget {
           children: [
             ClipOval(
               child: room.imageUrl == null
-                  ? Image.asset(
-                      Assets.profilePics.a1.path,
+                  ? Assets.icons.profile.svg(
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,

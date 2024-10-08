@@ -30,4 +30,15 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return left(e.toFailure());
     }
   }
+
+  @override
+  FutureResultVoid updateBio(String bio) async {
+    try {
+      await _localDatasource.updateBio(bio);
+
+      return voidSuccess;
+    } on ServerException catch (e) {
+      return left(e.toFailure());
+    }
+  }
 }

@@ -3,6 +3,8 @@ enum AppRoutes {
   login,
   rooms,
   chat,
+  contact,
   contacts,
   profile,
+  bio,
 }

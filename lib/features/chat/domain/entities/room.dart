@@ -39,6 +39,10 @@ class Room with RoomMappable {
         .toList();
   }
 
+  Profile get otherParticipant {
+    return otherParticipants.first;
+  }
+
   bool get lastSenderIsMe {
     final myUserId = sl<GlobalStore>().userId;
     return lastSenderId == myUserId;
@@ -46,11 +50,11 @@ class Room with RoomMappable {
 
   String get name {
     if (otherParticipants.isEmpty) return '';
-    return otherParticipants.first.username;
+    return otherParticipant.username;
   }
 
   String? get imageUrl {
     if (otherParticipants.isEmpty) return null;
-    return otherParticipants.first.imageUrl;
+    return otherParticipant.imageUrl;
   }
 }

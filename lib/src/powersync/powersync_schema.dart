@@ -20,6 +20,7 @@ const schema = Schema([
     Column.text('created_at'),
     Column.text('username'),
     Column.text('image_url'),
+    Column.text('bio'),
   ]),
   Table('status', [
     Column.text('created_at'),

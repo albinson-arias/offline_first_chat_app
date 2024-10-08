@@ -48,8 +48,7 @@ class ContactsList extends StatelessWidget {
                 },
                 leading: ClipOval(
                   child: contact.imageUrl == null
-                      ? Image.asset(
-                          Assets.profilePics.a1.path,
+                      ? Assets.icons.profile.svg(
                           width: 44,
                           height: 44,
                           fit: BoxFit.cover,

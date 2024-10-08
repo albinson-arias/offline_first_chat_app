@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/local_auth_state.dart';
+import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
 import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:offline_first_chat_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:offline_first_chat_app/features/auth/presentation/views/login_screen.dart';
@@ -10,10 +11,12 @@ import 'package:offline_first_chat_app/features/chat/presentation/cubits/chat_cu
 import 'package:offline_first_chat_app/features/chat/presentation/cubits/contacts_cubit/contacts_cubit.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_cubit/rooms_cubit.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/chat_page.dart';
+import 'package:offline_first_chat_app/features/chat/presentation/views/contact_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/contacts_page.dart';
 import 'package:offline_first_chat_app/features/chat/presentation/views/rooms_page.dart';
 import 'package:offline_first_chat_app/features/profile/presentation/cubit/pick_profile_pic_cubit/pick_profile_pic_cubit.dart';
 import 'package:offline_first_chat_app/features/profile/presentation/cubit/profile_cubit/profile_cubit.dart';
+import 'package:offline_first_chat_app/features/profile/presentation/screens/bio_screen.dart';
 import 'package:offline_first_chat_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
@@ -85,6 +88,16 @@ GoRouter getRouter(
                 child: ChatPage(room: room),
               );
             },
+            routes: [
+              GoRoute(
+                path: 'contact',
+                name: AppRoutes.contact.name,
+                builder: (context, state) {
+                  final profile = state.extra! as Profile;
+                  return ContactPage(profile: profile);
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: 'contacts',
@@ -114,6 +127,20 @@ GoRouter getRouter(
             child: const ProfileScreen(),
           ),
         ),
+        routes: [
+          GoRoute(
+            path: 'bio',
+            name: AppRoutes.bio.name,
+            builder: (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider<ProfileCubit>(
+                  create: (context) => sl(),
+                ),
+              ],
+              child: const BioScreen(),
+            ),
+          ),
+        ],
       ),
     ],
   );
