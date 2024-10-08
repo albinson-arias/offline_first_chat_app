@@ -17,7 +17,7 @@ class ProfileLocalDatasourceImpl implements ProfileLocalDatasource {
   final GoTrueClient _auth;
 
   @override
-  Future<void> updateProfilePicture(String imageUrl) async {
+  Future<void> updateProfilePicture(String? imageUrl) async {
     try {
       final userId = _auth.currentUser?.id;
 

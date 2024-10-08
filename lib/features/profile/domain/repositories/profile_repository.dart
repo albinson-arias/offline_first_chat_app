@@ -5,5 +5,6 @@ import 'package:record_result/record_result.dart';
 
 abstract interface class ProfileRepository {
   FutureResultVoid uploadProfilePicture(XFile imageFile);
+  FutureResultVoid deleteProfilePicture();
   FutureResultVoid updateBio(String bio);
 }

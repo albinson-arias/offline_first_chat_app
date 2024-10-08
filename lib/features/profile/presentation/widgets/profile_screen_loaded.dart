@@ -35,7 +35,7 @@ class ProfileScreenLoaded extends StatelessWidget {
         } else if (state is PickProfilePicFailure) {
           CoreUtils.showSnackBar(context, state.failure.errorMessage);
         } else if (state is PickProfilePicLoaded) {
-          CoreUtils.showSnackBar(context, 'Image uploaded successfully');
+          CoreUtils.showSnackBar(context, state.message);
         }
       },
       child: Padding(
@@ -79,6 +79,7 @@ class ProfileScreenLoaded extends StatelessWidget {
                           builder: (context) {
                             return PickPictureSourceDialog(
                               cubit: cubit,
+                              hasProfilePic: profile.imageUrl != null,
                             );
                           },
                         );

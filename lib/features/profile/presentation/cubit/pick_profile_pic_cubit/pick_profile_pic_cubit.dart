@@ -23,7 +23,26 @@ class PickProfilePicCubit extends Cubit<PickProfilePicState> {
         await _profileRepository.uploadProfilePicture(imagePickerResult!);
 
     result.fold(
-      (success) => emit(const PickProfilePicLoaded()),
+      (success) => emit(
+        const PickProfilePicLoaded(
+          'Image uploaded successfully',
+        ),
+      ),
+      (failure) => emit(PickProfilePicFailure(failure)),
+    );
+  }
+
+  Future<void> deleteProfilePic() async {
+    emit(const PickProfilePicLoading());
+
+    final result = await _profileRepository.deleteProfilePicture();
+
+    result.fold(
+      (success) => emit(
+        const PickProfilePicLoaded(
+          'Image deleted successfully',
+        ),
+      ),
       (failure) => emit(PickProfilePicFailure(failure)),
     );
   }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -10,9 +11,11 @@ import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
 class PickPictureSourceDialog extends StatelessWidget {
   const PickPictureSourceDialog({
     required this.cubit,
+    required this.hasProfilePic,
     super.key,
   });
   final PickProfilePicCubit cubit;
+  final bool hasProfilePic;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,20 @@ class PickPictureSourceDialog extends StatelessWidget {
                     icon: HugeIcons.strokeRoundedCamera01,
                     title: 'Pick From Camera',
                   ),
+                  if (hasProfilePic)
+                    Column(
+                      children: [
+                        const Divider(),
+                        PickPictureSourceDialogOption(
+                          onTap: () {
+                            context.pop();
+                            cubit.deleteProfilePic();
+                          },
+                          icon: HugeIcons.strokeRoundedDelete03,
+                          title: 'Delete Image',
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

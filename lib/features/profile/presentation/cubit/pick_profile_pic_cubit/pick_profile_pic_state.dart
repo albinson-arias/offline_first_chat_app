@@ -18,5 +18,6 @@ final class PickProfilePicFailure extends PickProfilePicState {
 }
 
 final class PickProfilePicLoaded extends PickProfilePicState {
-  const PickProfilePicLoaded();
+  const PickProfilePicLoaded(this.message);
+  final String message;
 }

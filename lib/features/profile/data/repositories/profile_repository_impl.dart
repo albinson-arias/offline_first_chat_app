@@ -23,7 +23,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         return left(imageUrlResult.failure!);
       }
 
-      await _localDatasource.updateProfilePicture(imageUrlResult.success!);
+      await _localDatasource.updateProfilePicture(imageUrlResult.success);
 
       return voidSuccess;
     } on ServerException catch (e) {
@@ -35,6 +35,17 @@ class ProfileRepositoryImpl implements ProfileRepository {
   FutureResultVoid updateBio(String bio) async {
     try {
       await _localDatasource.updateBio(bio);
+
+      return voidSuccess;
+    } on ServerException catch (e) {
+      return left(e.toFailure());
+    }
+  }
+
+  @override
+  FutureResultVoid deleteProfilePicture() async {
+    try {
+      await _localDatasource.updateProfilePicture(null);
 
       return voidSuccess;
     } on ServerException catch (e) {
