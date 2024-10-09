@@ -32,7 +32,7 @@ dependencies:
   powersync: ^1.7.0
   record_result: ^1.0.1+2
   shared_preferences: ^2.3.2
-  supabase_flutter: ^2.6.0
+  supabase_flutter: ^2.8.0
 
 dev_dependencies:
   bloc_test: ^9.1.7
