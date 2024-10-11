@@ -21,6 +21,7 @@ const schema = Schema([
     Column.text('username'),
     Column.text('image_url'),
     Column.text('bio'),
+    Column.text('fcm_token'),
   ]),
   Table('status', [
     Column.text('created_at'),

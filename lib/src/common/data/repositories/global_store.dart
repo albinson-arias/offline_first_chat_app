@@ -6,6 +6,7 @@ class GlobalStore {
 
   final SharedPreferences _sharedPreferences;
 
+  // Auth
   String? get username {
     return _sharedPreferences.getString('GlobalStore-username');
   }
@@ -28,5 +29,18 @@ class GlobalStore {
       return;
     }
     _sharedPreferences.setString('GlobalStore-userId', userId);
+  }
+
+  // Notifications
+  bool get userDeniedNotifications {
+    return _sharedPreferences.getBool('GlobalStore-userDeniedNotifications') ??
+        false;
+  }
+
+  set userDeniedNotifications(bool userDeniedNotifications) {
+    _sharedPreferences.setBool(
+      'GlobalStore-userDeniedNotifications',
+      userDeniedNotifications,
+    );
   }
 }

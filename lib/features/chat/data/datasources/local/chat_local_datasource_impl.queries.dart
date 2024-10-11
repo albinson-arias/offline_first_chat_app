@@ -12,7 +12,8 @@ SELECT
         'username', p.username,
         'image_url', p.image_url,
         'created_at', p.created_at,
-        'bio', p.bio
+        'bio', p.bio,
+        'fcm_token', p.fcm_token
     ) AS profile,
     m.content AS content,
     m.status AS status
@@ -52,7 +53,8 @@ UniqueParticipants AS (
             'username', p.username,
             'image_url', p.image_url,
             'created_at', p.created_at,
-            'bio', p.bio
+            'bio', p.bio,
+            'fcm_token', p.fcm_token
         )) AS participants
     FROM
         room_participants rp
@@ -111,7 +113,8 @@ UniqueParticipants AS (
             'username', p.username,
             'image_url', p.image_url,
             'created_at', p.created_at,
-            'bio', p.bio
+            'bio', p.bio,
+            'fcm_token', p.fcm_token
         )) AS participants
     FROM
         room_participants rp

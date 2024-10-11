@@ -29,85 +29,89 @@ class AppBottomNavigationBar extends StatelessWidget {
       bloc: sl(),
       builder: (context, state) {
         return SafeArea(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey.withOpacity(0.2),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                  ),
                 ),
               ),
-            ),
-            child: SizedBox(
-              height: kBottomNavigationBarHeight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          if (state == 0) return;
-                          context.goNamed(AppRoutes.rooms.name);
-                          sl<BottomNavBarCubit>().navigateToHome();
-                        },
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        child: Center(
-                          child: HugeIcon(
-                            icon: HugeIcons.strokeRoundedHome01,
-                            color: state == 0 ? Colors.blue : Colors.black,
+              child: SizedBox(
+                height: kBottomNavigationBarHeight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            if (state == 0) return;
+                            context.goNamed(AppRoutes.rooms.name);
+                            sl<BottomNavBarCubit>().navigateToHome();
+                          },
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          child: Center(
+                            child: HugeIcon(
+                              icon: HugeIcons.strokeRoundedHome01,
+                              color: state == 0 ? Colors.blue : Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: InkWell(
-                        onTap: () => context.pushNamed(AppRoutes.contacts.name),
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          height: double.maxFinite,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                'New Chat',
-                                style: context.textTheme.labelLarge?.copyWith(
+                      Expanded(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () =>
+                              context.pushNamed(AppRoutes.contacts.name),
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.add,
                                   color: Colors.white,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'New Chat',
+                                  style: context.textTheme.labelLarge?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          if (state == 1) return;
-                          context.goNamed(AppRoutes.profile.name);
-                          sl<BottomNavBarCubit>().navigateToProfile();
-                        },
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        child: Center(
-                          child: HugeIcon(
-                            icon: HugeIcons.strokeRoundedUser,
-                            color: state == 1 ? Colors.blue : Colors.black,
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            if (state == 1) return;
+                            context.goNamed(AppRoutes.profile.name);
+                            sl<BottomNavBarCubit>().navigateToProfile();
+                          },
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          child: Center(
+                            child: HugeIcon(
+                              icon: HugeIcons.strokeRoundedUser,
+                              color: state == 1 ? Colors.blue : Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

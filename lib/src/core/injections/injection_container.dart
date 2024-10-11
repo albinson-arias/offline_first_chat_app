@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:offline_first_chat_app/features/auth/data/datasources/local/auth_local_datasource.dart';
 import 'package:offline_first_chat_app/features/auth/data/datasources/local/auth_local_datasource_impl.dart';
@@ -27,6 +28,7 @@ import 'package:offline_first_chat_app/src/common/data/repositories/image_upload
 import 'package:offline_first_chat_app/src/common/domain/repositories/image_uploader.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_router.dart';
+import 'package:offline_first_chat_app/src/notifications/notification_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -49,11 +51,21 @@ Future<void> initCore() async {
     ..registerLazySingleton<ImageUploader>(
       () => ImageUploaderImpl(storageClient: sl()),
     )
+    ..registerLazySingleton(
+      () => NotificationController(
+        globalStore: sl(),
+        messaging: sl(),
+        profileRepository: sl(),
+      ),
+    )
     ..registerLazySingleton(() => GlobalStore(sharedPreferences: sl()))
     ..registerLazySingleton(BottomNavBarCubit.new)
     ..registerLazySingleton<GoTrueClient>(() => Supabase.instance.client.auth)
     ..registerLazySingleton<SupabaseStorageClient>(
       () => Supabase.instance.client.storage,
+    )
+    ..registerLazySingleton<FirebaseMessaging>(
+      () => FirebaseMessaging.instance,
     )
     ..registerLazySingleton<PostgrestClient>(
       () => Supabase.instance.client.rest,

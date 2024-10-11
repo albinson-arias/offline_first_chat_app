@@ -7,4 +7,5 @@ abstract interface class ProfileRepository {
   FutureResultVoid uploadProfilePicture(XFile imageFile);
   FutureResultVoid deleteProfilePicture();
   FutureResultVoid updateBio(String bio);
+  FutureResultVoid updateFcmToken(String? fcmToken);
 }

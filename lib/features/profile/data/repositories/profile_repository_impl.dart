@@ -52,4 +52,15 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return left(e.toFailure());
     }
   }
+
+  @override
+  FutureResultVoid updateFcmToken(String? fcmToken) async {
+    try {
+      await _localDatasource.updateFcmToken(fcmToken);
+
+      return voidSuccess;
+    } on ServerException catch (e) {
+      return left(e.toFailure());
+    }
+  }
 }

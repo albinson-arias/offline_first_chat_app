@@ -112,3 +112,7 @@ app.*.map.json
 !.idea/runConfigurations/
 env/dev.json
 env/.env.dev
+firebase.json
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart

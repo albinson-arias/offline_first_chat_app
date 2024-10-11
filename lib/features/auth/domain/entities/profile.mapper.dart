@@ -33,6 +33,9 @@ class ProfileMapper extends ClassMapperBase<Profile> {
   static String? _$imageUrl(Profile v) => v.imageUrl;
   static const Field<Profile, String> _f$imageUrl =
       Field('imageUrl', _$imageUrl, key: 'image_url', opt: true);
+  static String? _$fcmToken(Profile v) => v.fcmToken;
+  static const Field<Profile, String> _f$fcmToken =
+      Field('fcmToken', _$fcmToken, key: 'fcm_token', opt: true);
 
   @override
   final MappableFields<Profile> fields = const {
@@ -41,6 +44,7 @@ class ProfileMapper extends ClassMapperBase<Profile> {
     #username: _f$username,
     #bio: _f$bio,
     #imageUrl: _f$imageUrl,
+    #fcmToken: _f$fcmToken,
   };
 
   static Profile _instantiate(DecodingData data) {
@@ -49,7 +53,8 @@ class ProfileMapper extends ClassMapperBase<Profile> {
         createdAt: data.dec(_f$createdAt),
         username: data.dec(_f$username),
         bio: data.dec(_f$bio),
-        imageUrl: data.dec(_f$imageUrl));
+        imageUrl: data.dec(_f$imageUrl),
+        fcmToken: data.dec(_f$fcmToken));
   }
 
   @override
@@ -106,7 +111,8 @@ abstract class ProfileCopyWith<$R, $In extends Profile, $Out>
       DateTime? createdAt,
       String? username,
       String? bio,
-      String? imageUrl});
+      String? imageUrl,
+      String? fcmToken});
   ProfileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -124,13 +130,15 @@ class _ProfileCopyWithImpl<$R, $Out>
           DateTime? createdAt,
           String? username,
           String? bio,
-          Object? imageUrl = $none}) =>
+          Object? imageUrl = $none,
+          Object? fcmToken = $none}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (createdAt != null) #createdAt: createdAt,
         if (username != null) #username: username,
         if (bio != null) #bio: bio,
-        if (imageUrl != $none) #imageUrl: imageUrl
+        if (imageUrl != $none) #imageUrl: imageUrl,
+        if (fcmToken != $none) #fcmToken: fcmToken
       }));
   @override
   Profile $make(CopyWithData data) => Profile(
@@ -138,7 +146,8 @@ class _ProfileCopyWithImpl<$R, $Out>
       createdAt: data.get(#createdAt, or: $value.createdAt),
       username: data.get(#username, or: $value.username),
       bio: data.get(#bio, or: $value.bio),
-      imageUrl: data.get(#imageUrl, or: $value.imageUrl));
+      imageUrl: data.get(#imageUrl, or: $value.imageUrl),
+      fcmToken: data.get(#fcmToken, or: $value.fcmToken));
 
   @override
   ProfileCopyWith<$R2, Profile, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

@@ -6,12 +6,14 @@ import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dar
 import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:offline_first_chat_app/features/profile/presentation/cubit/pick_profile_pic_cubit/pick_profile_pic_cubit.dart';
 import 'package:offline_first_chat_app/features/profile/presentation/widgets/pick_picture_source_dialog.dart';
+import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 import 'package:offline_first_chat_app/src/core/utils/core_utils.dart';
 import 'package:offline_first_chat_app/src/gen/assets.gen.dart';
+import 'package:offline_first_chat_app/src/notifications/notification_controller.dart';
 
 class ProfileScreenLoaded extends StatelessWidget {
   const ProfileScreenLoaded({
@@ -186,6 +188,51 @@ class ProfileScreenLoaded extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 24,
+                      right: 12,
+                      top: 2,
+                      bottom: 2,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.notifications_none_rounded,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Notifications',
+                          style: context.textTheme.labelLarge,
+                        ),
+                        const Spacer(),
+                        Checkbox(
+                          value: profile.fcmToken != null,
+                          shape: const CircleBorder(),
+                          fillColor: WidgetStatePropertyAll(
+                            profile.fcmToken != null
+                                ? Colors.blue
+                                : const Color(0xFFF1F1F1),
+                          ),
+                          onChanged: (value) {
+                            if (value!) {
+                              sl<GlobalStore>().userDeniedNotifications = false;
+                              sl<NotificationController>().requestPermissions(
+                                goToSettingsIfDenied: true,
+                              );
+                            } else {
+                              sl<NotificationController>()
+                                  .disableNotifications();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

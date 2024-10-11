@@ -11,3 +11,9 @@ UPDATE profiles
 SET bio = ?
 WHERE id = ? ;
 ''';
+
+const updateFcmTokenSQLQuery = '''
+UPDATE profiles
+SET fcm_token = ?
+WHERE id = ? ;
+''';

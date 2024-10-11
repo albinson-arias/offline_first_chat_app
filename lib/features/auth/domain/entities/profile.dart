@@ -10,6 +10,7 @@ class Profile with ProfileMappable {
     required this.username,
     required this.bio,
     this.imageUrl,
+    this.fcmToken,
   });
 
   /// The unique identifier of the user.
@@ -27,4 +28,7 @@ class Profile with ProfileMappable {
   /// A short description of this user.
   /// Maximum length is 100.
   final String bio;
+
+  /// The optional FCM Token assigned to this user.
+  final String? fcmToken;
 }

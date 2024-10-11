@@ -5,9 +5,26 @@ import 'package:offline_first_chat_app/features/chat/presentation/cubits/rooms_c
 import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
 import 'package:offline_first_chat_app/src/common/presentation/widgets/app_bottom_nav_bar.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
+import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
+import 'package:offline_first_chat_app/src/notifications/notification_controller.dart';
 
-class RoomsPage extends StatelessWidget {
+class RoomsPage extends StatefulWidget {
   const RoomsPage({super.key});
+
+  @override
+  State<RoomsPage> createState() => _RoomsPageState();
+}
+
+class _RoomsPageState extends State<RoomsPage> {
+  @override
+  void initState() {
+    Future<void>.delayed(Durations.extralong1).then(
+      (value) {
+        sl<NotificationController>().requestPermissions();
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
