@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:offline_first_chat_app/features/chat/presentation/widgets/widgets.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/extensions/context_ext.dart';
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
@@ -12,16 +11,6 @@ class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({
     super.key,
   });
-
-  void showNewChatDialog(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return const NewChatDialog();
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +37,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                     children: [
                       Expanded(
                         child: InkWell(
+                          key: const Key('AppBottomNavigationBar-home'),
                           onTap: () {
                             if (state == 0) return;
                             context.goNamed(AppRoutes.rooms.name);
@@ -95,6 +85,7 @@ class AppBottomNavigationBar extends StatelessWidget {
                       ),
                       Expanded(
                         child: InkWell(
+                          key: const Key('AppBottomNavigationBar-profile'),
                           onTap: () {
                             if (state == 1) return;
                             context.goNamed(AppRoutes.profile.name);

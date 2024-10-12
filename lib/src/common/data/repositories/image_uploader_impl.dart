@@ -17,19 +17,19 @@ class ImageUploaderImpl implements ImageUploader {
       final fileExt = imageFile.path.split('.').last;
       final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
       final filePath = fileName;
-      await _storageClient
-          .from(StorageConstants.profilePicsBucket)
-          .uploadBinary(
-            filePath,
-            bytes,
-            fileOptions: FileOptions(contentType: 'image/$fileExt'),
-          );
-      final imageUrlResponse = await _storageClient
-          .from(StorageConstants.profilePicsBucket)
-          .createSignedUrl(
-            filePath,
-            60 * 60 * 24 * 365 * 10,
-          );
+      final storageApi =
+          _storageClient.from(StorageConstants.profilePicsBucket);
+
+      await storageApi.uploadBinary(
+        filePath,
+        bytes,
+        fileOptions: FileOptions(contentType: 'image/$fileExt'),
+      );
+
+      final imageUrlResponse = await storageApi.createSignedUrl(
+        filePath,
+        60 * 60 * 24 * 365 * 10,
+      );
 
       return right(imageUrlResponse);
     } on StorageException catch (error) {
@@ -38,7 +38,7 @@ class ImageUploaderImpl implements ImageUploader {
       );
     } catch (error) {
       return left(
-        ServerFailure(message: 'Unexpected error occurred', statusCode: 505),
+        ServerFailure(message: 'Unexpected error occurred', statusCode: '505'),
       );
     }
   }

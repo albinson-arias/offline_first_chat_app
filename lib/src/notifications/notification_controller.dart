@@ -1,23 +1,24 @@
-import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_open_app_settings/flutter_open_app_settings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:offline_first_chat_app/features/profile/domain/repositories/profile_repository.dart';
 import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
+import 'package:offline_first_chat_app/src/core/utils/open_flutter_settings.dart';
 
 class NotificationController {
   const NotificationController({
     required FirebaseMessaging messaging,
     required ProfileRepository profileRepository,
     required GlobalStore globalStore,
+    required OpenFlutterSettings openFlutterSettings,
   })  : _messaging = messaging,
         _profileRepository = profileRepository,
-        _globalStore = globalStore;
+        _globalStore = globalStore,
+        _openFlutterSettings = openFlutterSettings;
 
   final FirebaseMessaging _messaging;
   final ProfileRepository _profileRepository;
   final GlobalStore _globalStore;
+  final OpenFlutterSettings _openFlutterSettings;
 
   Future<void> requestPermissions({bool goToSettingsIfDenied = false}) async {
     if (_globalStore.userDeniedNotifications) {
@@ -30,9 +31,8 @@ class NotificationController {
       await getFcmToken();
     } else {
       if (goToSettingsIfDenied) {
-        await FlutterOpenAppSettings.openAppsSettings(
-          settingsCode: SettingsCode.NOTIFICATION,
-          onCompletion: requestPermissions,
+        await _openFlutterSettings.goToNotifications(
+          requestPermissions,
         );
         return;
       }
@@ -46,7 +46,7 @@ class NotificationController {
   }
 
   Future<void> getFcmToken() async {
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       final apnsToken = await _messaging.getAPNSToken();
       if (apnsToken == null) {
         return;
@@ -61,9 +61,9 @@ class NotificationController {
 
   void listenToFcmTokenChanges() {
     _messaging.onTokenRefresh.listen(
-      (event) {
+      (event) async {
         debugPrint('🚗💨 got fcmToken');
-        _profileRepository.updateFcmToken(event);
+        await _profileRepository.updateFcmToken(event);
       },
     ).onError(
       (err) {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:offline_first_chat_app/src/core/utils/constants.dart';
 
 void main() {
   // Test the email regex
   group('Email Validation Regex', () {
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
     test('Valid email addresses', () {
       expect(emailRegex.hasMatch('test@example.com'), isTrue);
       expect(emailRegex.hasMatch('john.doe@domain.co.uk'), isTrue);
@@ -22,8 +21,6 @@ void main() {
 
   // Test the password regex
   group('Password Validation Regex', () {
-    final passwordRegex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
-
     test('Valid passwords', () {
       expect(passwordRegex.hasMatch('password1'), isTrue);
       expect(passwordRegex.hasMatch('abc12345'), isTrue);

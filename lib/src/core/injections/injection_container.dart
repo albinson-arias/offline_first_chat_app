@@ -28,6 +28,7 @@ import 'package:offline_first_chat_app/src/common/data/repositories/image_upload
 import 'package:offline_first_chat_app/src/common/domain/repositories/image_uploader.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_router.dart';
+import 'package:offline_first_chat_app/src/core/utils/open_flutter_settings.dart';
 import 'package:offline_first_chat_app/src/notifications/notification_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -56,6 +57,7 @@ Future<void> initCore() async {
         globalStore: sl(),
         messaging: sl(),
         profileRepository: sl(),
+        openFlutterSettings: const OpenFlutterSettings(),
       ),
     )
     ..registerLazySingleton(() => GlobalStore(sharedPreferences: sl()))
