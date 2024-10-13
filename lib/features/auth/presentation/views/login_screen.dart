@@ -8,10 +8,6 @@ import 'package:offline_first_chat_app/src/core/utils/core_utils.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
-  static Route<void> route() {
-    return MaterialPageRoute(builder: (context) => const LoginScreen());
-  }
-
   @override
   LoginScreenState createState() => LoginScreenState();
 }
@@ -58,6 +54,7 @@ class LoginScreenState extends State<LoginScreen> {
               padding: formPadding,
               children: [
                 TextFormField(
+                  key: const Key('LoginScreen-email_field'),
                   controller: _emailController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -82,6 +79,7 @@ class LoginScreenState extends State<LoginScreen> {
                   onPressed: isLoading ? null : _signIn,
                   child: isLoading
                       ? const Center(
+                          key: Key('LoginScreen-loading_button'),
                           child: CircularProgressIndicator.adaptive(),
                         )
                       : const Text('Login'),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:offline_first_chat_app/src/common/presentation/cubits/bottom_nav_bar_cubit.dart';
@@ -9,27 +8,10 @@ import 'package:offline_first_chat_app/src/common/presentation/widgets/app_botto
 import 'package:offline_first_chat_app/src/core/injections/injection_container.dart';
 import 'package:offline_first_chat_app/src/core/routing/app_routes.dart';
 
+import '../../../../test_utils/common_mocks.dart';
+import '../../../../test_utils/utils.dart';
+
 class MockBottomNavBarCubit extends Mock implements BottomNavBarCubit {}
-
-class MockGoRouter extends Mock implements GoRouter {}
-
-class MockGoRouterProvider extends StatelessWidget {
-  const MockGoRouterProvider({
-    required this.goRouter,
-    required this.child,
-    super.key,
-  });
-
-  final MockGoRouter goRouter;
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => InheritedGoRouter(
-        goRouter: goRouter,
-        child: child,
-      );
-}
 
 void main() {
   late MockBottomNavBarCubit mockBottomNavBarCubit;

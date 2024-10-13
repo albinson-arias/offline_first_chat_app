@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:offline_first_chat_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:record_result/record_result.dart';
 

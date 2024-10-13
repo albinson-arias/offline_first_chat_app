@@ -105,6 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 formSpacer,
                 ElevatedButton(
+                  key: const Key('RegisterScreen-register_button'),
                   onPressed: isLoading ? null : _signUp,
                   child: const Text('Register'),
                 ),
