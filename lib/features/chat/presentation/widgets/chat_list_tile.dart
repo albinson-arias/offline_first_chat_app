@@ -16,6 +16,11 @@ class RoomListTile extends StatelessWidget {
   });
   final Room room;
 
+  String get formattedTime {
+    return '${room.lastMessageTimeSent!.hour.toString().padLeft(2, '0')}'
+        ':${room.lastMessageTimeSent!.minute.toString().padLeft(2, '0')}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -70,13 +75,13 @@ class RoomListTile extends StatelessWidget {
                         maxLines: 1,
                       ),
                       const Spacer(),
-                      Text(
-                        '${room.createdAt.hour.toString().padLeft(2, '0')}'
-                        ':${room.createdAt.minute.toString().padLeft(2, '0')}',
-                        style: context.textTheme.labelSmall?.copyWith(
-                          color: Colors.grey,
+                      if (room.lastMessageTimeSent != null)
+                        Text(
+                          formattedTime,
+                          style: context.textTheme.labelSmall?.copyWith(
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   SizedBox(height: room.unreadMessages > 0 ? 2 : 6),
@@ -121,7 +126,7 @@ class RoomListTile extends StatelessWidget {
                             color: Colors.blue,
                           ),
                           child: Text(
-                            '2',
+                            room.unreadMessages.toString(),
                             style: context.textTheme.labelSmall?.copyWith(
                               color: Colors.white,
                             ),

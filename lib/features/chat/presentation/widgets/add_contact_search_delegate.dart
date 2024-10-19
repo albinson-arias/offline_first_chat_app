@@ -8,14 +8,17 @@ import 'package:offline_first_chat_app/src/core/injections/injection_container.d
 import 'package:offline_first_chat_app/src/core/utils/debouncer.dart';
 
 class AddContactsSearchDelegate extends SearchDelegate<Profile?> {
-  AddContactsSearchDelegate({required this.contactsCubit}) {
+  AddContactsSearchDelegate({
+    required this.contactsCubit,
+    Debouncer? debouncer,
+  }) {
     cubit = sl();
-    debouncer = Debouncer(milliseconds: 500);
+    _debouncer = debouncer ?? Debouncer(milliseconds: 500);
   }
   final ContactsCubit contactsCubit;
 
   late final AddContactsCubit cubit;
-  late final Debouncer debouncer;
+  late final Debouncer _debouncer;
 
   @override
   void dispose() {
@@ -38,29 +41,11 @@ class AddContactsSearchDelegate extends SearchDelegate<Profile?> {
       );
 
   @override
-  Widget buildResults(BuildContext context) =>
-      BlocBuilder<AddContactsCubit, AddContactsState>(
-        bloc: cubit,
-        builder: (context, state) {
-          return switch (state) {
-            (AddContactsLoaded(:final contacts)) => contacts.isEmpty
-                ? const Center(
-                    child: Text('No Results', style: TextStyle(fontSize: 24)),
-                  )
-                : BlocProvider.value(
-                    value: contactsCubit,
-                    child: ContactsList(
-                      contacts: contacts,
-                    ),
-                  ),
-            _ => const Center(child: CircularProgressIndicator.adaptive())
-          };
-        },
-      );
+  Widget buildResults(BuildContext context) => const SizedBox.shrink();
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    debouncer.run(
+    _debouncer.run(
       () {
         cubit.searchProfiles(query);
       },

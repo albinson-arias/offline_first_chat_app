@@ -18,6 +18,7 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xffF4F4F5),
         title: InkWell(
+          key: const Key('ChatPage-AppBarTitle'),
           onTap: () {
             context.pushNamed(
               AppRoutes.contact.name,

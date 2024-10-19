@@ -3,17 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:offline_first_chat_app/features/profile/domain/repositories/profile_repository.dart';
-import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
 import 'package:offline_first_chat_app/src/core/utils/open_flutter_settings.dart';
 import 'package:offline_first_chat_app/src/notifications/notification_controller.dart';
 import 'package:record_result/record_result.dart';
+
+import '../../test_utils/common_mocks.dart';
 
 // Mock classes using mocktail
 class MockFirebaseMessaging extends Mock implements FirebaseMessaging {}
 
 class MockProfileRepository extends Mock implements ProfileRepository {}
-
-class MockGlobalStore extends Mock implements GlobalStore {}
 
 class MockOpenFlutterSettings extends Mock implements OpenFlutterSettings {}
 

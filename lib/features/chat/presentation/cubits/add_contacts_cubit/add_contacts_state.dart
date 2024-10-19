@@ -1,7 +1,10 @@
 part of 'add_contacts_cubit.dart';
 
-sealed class AddContactsState {
+sealed class AddContactsState extends Equatable {
   const AddContactsState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class AddContactsInitial extends AddContactsState {
@@ -22,4 +25,7 @@ final class AddContactsNavigateToRoom extends AddContactsState {
   const AddContactsNavigateToRoom(this.room);
 
   final Room room;
+
+  @override
+  List<Object?> get props => [room];
 }

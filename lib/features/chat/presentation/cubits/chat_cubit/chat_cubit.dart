@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:offline_first_chat_app/features/chat/domain/entities/chat_message.dart';
 import 'package:offline_first_chat_app/features/chat/domain/repositories/chat_repository.dart';
 

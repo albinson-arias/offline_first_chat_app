@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'common_mocks.dart';
-
 class MockGoRouterProvider extends StatelessWidget {
   const MockGoRouterProvider({
     required this.goRouter,
@@ -10,7 +8,7 @@ class MockGoRouterProvider extends StatelessWidget {
     super.key,
   });
 
-  final MockGoRouter goRouter;
+  final GoRouter goRouter;
 
   final Widget child;
 

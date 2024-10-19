@@ -27,14 +27,7 @@ class ContactsSearchDelegate extends SearchDelegate<Profile?> {
       );
 
   @override
-  Widget buildResults(BuildContext context) => results.isEmpty
-      ? const Center(
-          child: Text('No Results', style: TextStyle(fontSize: 24)),
-        )
-      : BlocProvider.value(
-          value: cubit,
-          child: ContactsList(contacts: results),
-        );
+  Widget buildResults(BuildContext context) => const SizedBox.shrink();
 
   @override
   Widget buildSuggestions(BuildContext context) {

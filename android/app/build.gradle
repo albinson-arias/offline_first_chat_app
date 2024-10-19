@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.albinsonarias.offline_first_chat_app"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -54,7 +54,7 @@ android {
         applicationId "com.albinsonarias.offline_first_chat_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 31
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

@@ -5,15 +5,14 @@ import 'package:offline_first_chat_app/features/auth/data/datasources/remote/aut
 import 'package:offline_first_chat_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/local_auth_state.dart';
 import 'package:offline_first_chat_app/features/auth/domain/entities/profile.dart';
-import 'package:offline_first_chat_app/src/common/data/repositories/global_store.dart';
 import 'package:offline_first_chat_app/src/core/errors/exceptions.dart';
 import 'package:record_result/record_result.dart';
+
+import '../../../../test_utils/common_mocks.dart';
 
 class MockAuthLocalDatasource extends Mock implements AuthLocalDatasource {}
 
 class MockAuthRemoteDatasource extends Mock implements AuthRemoteDatasource {}
-
-class MockGlobalStore extends Mock implements GlobalStore {}
 
 void main() {
   late MockAuthLocalDatasource mockLocalDatasource;
