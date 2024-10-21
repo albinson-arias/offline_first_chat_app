@@ -1,7 +1,10 @@
 part of 'profile_cubit.dart';
 
-sealed class ProfileState {
+sealed class ProfileState extends Equatable {
   const ProfileState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class ProfileInitial extends ProfileState {
@@ -16,4 +19,7 @@ final class ProfileLoaded extends ProfileState {
   const ProfileLoaded(this.profile);
 
   final Profile profile;
+
+  @override
+  List<Object?> get props => [profile];
 }

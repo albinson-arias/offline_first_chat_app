@@ -27,6 +27,7 @@ abstract class CoreUtils {
       context: context,
       barrierDismissible: false,
       builder: (_) => const Center(
+        key: Key('loadingDialog'),
         child: CircularProgressIndicator.adaptive(),
       ),
     );

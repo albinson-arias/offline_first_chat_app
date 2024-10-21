@@ -19,9 +19,9 @@ class PickPictureSourceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.of(context).pop(),
-      child: SafeArea(
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
@@ -83,7 +83,7 @@ class PickPictureSourceDialog extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: InkWell(
-                        onTap: () => Navigator.of(context).pop(),
+                        onTap: () => context.pop(),
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
                           height: double.maxFinite,
